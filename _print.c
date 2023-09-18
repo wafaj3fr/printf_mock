@@ -32,7 +32,7 @@ int _print(const char *format, ...)
             }
             else if (*format == 's')
             {
-                // *s = va_arg(list, char);
+                s = va_arg(list, char*);
                 while (*s)
                 {
                     putchar(*s);
@@ -82,6 +82,7 @@ int main(void)
     int d = 12;
     char *str = "This is a string";
     _print("This is a couple of characters %c %c", c, b);
+    _print("%s", str);
     // _print("%S\n", "Best\nSchool");
     _print("%d", d);
 }
