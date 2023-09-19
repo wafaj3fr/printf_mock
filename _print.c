@@ -9,7 +9,12 @@ int (*pick_f(const char *format))(va_list)
 		{"s", print_s},
 		{"d", print_n},
 		{"i", print_n},
+<<<<<<< HEAD
 		{NULL, NULL}};
+=======
+		{NULL, NULL}
+	};
+>>>>>>> c7c672d89e635b33f7c6fd1358db5d22b4660d88
 
 	for (i = 0; pick[i].f_spec; i++)
 	{
@@ -74,6 +79,7 @@ int _printf(const char *format, ...)
 	va_end(list);
 	return count;
 }
+<<<<<<< HEAD
 
 int main(void)
 {
@@ -108,3 +114,5 @@ int main(void)
 	printf("Len:[%d]\n", len2);
 	return (0);
 }
+=======
+>>>>>>> c7c672d89e635b33f7c6fd1358db5d22b4660d88
