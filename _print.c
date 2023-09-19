@@ -7,6 +7,7 @@ int (*pick_f(const char *format))(va_list)
 		{"c", print_c},
 		{"s", print_s},
 		{"d", print_n},
+		{"i", print_n},
 		{NULL, NULL}
 	};
 
