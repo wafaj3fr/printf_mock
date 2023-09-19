@@ -14,6 +14,6 @@ The function looks for '%' within the format string and interprets the character
 For example when it encounters %d, the expected data type of the argument is int.
 
 
-##standard funtions used in this project
+## Standard funtions used in this project
  write, va_list, va_start, va_end, va_arg
 
