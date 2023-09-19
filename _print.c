@@ -1,89 +1,87 @@
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "main.h"
 
-int _print(const char *format, ...)
+int (*pick_f(const char *format))(va_list)
+{
+	spec pick[] = {
+		{"c", print_c},
+		{"s", print_s},
+		{"d", print_n},
+		// {"i", print_n},
+		{NULL, NULL} // End of the list
+	};
+
+	for (int i = 0; pick[i].f_spec; i++)
+	{
+		if (pick[i].f_spec[0] == *format)
+		{
+			return pick[i].f;
+		}
+	}
+
+	return NULL; // Default to NULL if no matching specifier is found
+}
+
+int _printf(const char *format, ...)
 {
 	va_list list;
-	va_start(list, format);
-	int count = 0;
-	char c, *s;
-	int d;
+	int (*f)(va_list);
+	unsigned int count = 0;
+	unsigned int i = 0;
 
-	while (*format)
+	if (format == NULL)
 	{
-		if (*format != '%')
+		return -1;
+	}
+
+	va_start(list, format);
+
+	while (format[i])
+	{
+		while (format[i] != '%' && format[i])
 		{
-			putchar(*format);
+			write(1, &format[i], 1); // Use write to print characters
 			count++;
+			i++;
 		}
-		// else if (*format < 32 || *format >= 127)
-		// {
-		//     putchar('x');
-		// }
+
+		if (format[i] == '\0')
+		{
+			break;
+		}
+
+		f = pick_f(&format[i + 1]);
+		if (f != NULL)
+		{
+			count += f(list);
+			i += 2;
+		}
 		else
 		{
-			format++;
-			if (*format == 'c')
+			write(1, &format[i], 1); // Use write to print characters
+			count++;
+			if (format[i + 1] == '%')
 			{
-				c = va_arg(list, int);
-				putchar(c);
-				count++;
+				i += 2;
 			}
-			else if (*format == 's')
+			else
 			{
-				s = va_arg(list, char*);
-				while (*s)
-				{
-					putchar(*s);
-					s++;
-					count++;
-				}
-			}
-			else if (*format == 'd' || *format == 'i')
-			{
-				d = va_arg(list, int);
-				if (d < 0)
-				{
-					putchar('-');
-					count++;
-					d = -d;
-				}
-				int divisor = 1;
-				while (d / divisor > 9)
-				{
-					divisor *= 10;
-				}
-				while (divisor >= 1)
-				{
-					int digit = d / divisor;
-					putchar('0' + digit);
-					count++;
-					d %= divisor;
-					divisor /= 10;
-				}
-			}
-			else if (*format == '%')
-			{
-				putchar('%');
-				count++;
+				i++;
 			}
 		}
-		format++;
 	}
-	putchar('\n');
+
 	va_end(list);
-	return (count);
+	return count;
 }
 
 int main(void)
 {
 	char c = 'A';
 	char b = 'b';
-	int d = 12;
+	int d = 1327;
 	char *str = "This is a string";
-	_print("This is a couple of characters %c %c", c, b);
-	_print("%s", str);
-	// _print("%S\n", "Best\nSchool");
-	_print("%d", d);
+	_printf("This is a couple of characters %c %c\n", c, b);
+	_printf("%s\n", str);
+	_printf("%d\n", d);
+	return 0;
 }
