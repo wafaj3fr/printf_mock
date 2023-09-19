@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+ * print_n - prints numbers
+ * @list: list of arguments
+ * Return: characters count
+ */
+
 int print_n(va_list list)
 {
 	int n = va_arg(list, int);
