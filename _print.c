@@ -29,6 +29,12 @@ int (*pick_f(const char *format))(va_list)
 	return NULL;
 }
 
+/**
+ * _printf - function that process a format string
+ * @format: the format
+ * Return: characters count
+*/
+
 int _printf(const char *format, ...)
 {
 	va_list list;
