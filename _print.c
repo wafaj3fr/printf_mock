@@ -1,6 +1,12 @@
 #include <limits.h>
 #include "main.h"
 
+/**
+ * pick_f - functions that matches specifiers to there functions
+ * @format: the format
+ * Return: pointer to the function selected
+*/
+
 int (*pick_f(const char *format))(va_list)
 {
 	int i;
