@@ -2,15 +2,15 @@
 
 int (*pick_f(const char *format))(va_list)
 {
+	int i;
 	spec pick[] = {
 		{"c", print_c},
 		{"s", print_s},
 		{"d", print_n},
-		// {"i", print_n},
-		{NULL, NULL} // End of the list
+		{NULL, NULL}
 	};
 
-	for (int i = 0; pick[i].f_spec; i++)
+	for (i = 0; pick[i].f_spec; i++)
 	{
 		if (pick[i].f_spec[0] == *format)
 		{
@@ -18,7 +18,7 @@ int (*pick_f(const char *format))(va_list)
 		}
 	}
 
-	return NULL; // Default to NULL if no matching specifier is found
+	return NULL;
 }
 
 int _printf(const char *format, ...)
@@ -39,7 +39,7 @@ int _printf(const char *format, ...)
 	{
 		while (format[i] != '%' && format[i])
 		{
-			write(1, &format[i], 1); // Use write to print characters
+			write(1, &format[i], 1);
 			count++;
 			i++;
 		}
@@ -57,7 +57,7 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			write(1, &format[i], 1); // Use write to print characters
+			write(1, &format[i], 1);
 			count++;
 			if (format[i + 1] == '%')
 			{

@@ -7,11 +7,10 @@
 #include <unistd.h>
 #include <string.h>
 
-// Define a struct to hold format specifiers and corresponding functions
 typedef struct format
 {
-    char *f_spec;
-    int (*f)(va_list);
+	char *f_spec;
+	int (*f)(va_list);
 } spec;
 
 int _printf(const char *format, ...);
