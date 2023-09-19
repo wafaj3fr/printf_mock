@@ -73,15 +73,3 @@ int _printf(const char *format, ...)
 	va_end(list);
 	return count;
 }
-
-int main(void)
-{
-	char c = 'A';
-	char b = 'b';
-	int d = 1327;
-	char *str = "This is a string";
-	_printf("This is a couple of characters %c %c\n", c, b);
-	_printf("%s\n", str);
-	_printf("%d\n", d);
-	return 0;
-}
